@@ -24,5 +24,19 @@ guessButton.addEventListener("click", function(event){
     const userInput = letterInput.value
     console.log(userInput)
     letterInput.value = "";
+
+    const la = playerInput(input)
+    console.log(la)
 });
 
+
+const playerInput = function(input){
+    const acceptedLetter = /[a-zA-Z]/;
+    if (input === "" || input !== acceptedLetter){
+        message.innerHTML = "Please enter a from A to Z";
+    } else if (input === acceptedLetter.match(input)){
+        message.innerText = "You already tried this letter, please try again.";
+    }else{
+        return input;
+    }
+}
