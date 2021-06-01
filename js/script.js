@@ -14,25 +14,24 @@ let remainingGuesses = 8;
 const getWord = async function () {
     const response = await fetch("https://gist.githubusercontent.com/skillcrush-curriculum/7061f1d4d3d5bfe47efbfbcfe42bf57e/raw/5ffc447694486e7dea686f34a6c085ae371b43fe/words.txt");
     const words = await response.text();
-    const wordArray = words.split("\n");
+    const wordArray = words.split("\n"); //need to split the words from the text file into an array with split() and use the newlines (AKA line breaks) between each word to separate them. To use the newlines, you'll include a delimiter—a character to separate words—in your split() method. In JavaScript, newlines are represented by the n character.
+    //console.log(wordArray) // To select a random word, you'll need first to transform the data you fetched into an array. Each word is separated by a newline (line break), so this is the delimiter you'll use to create the array:
     const randomIndex = Math.floor(Math.random() * wordArray.length);
-    word = wordArray[randomIndex].trim();
+    word = wordArray[randomIndex].trim();//.trim() allows you to remove any extra whitespace before or after each word, like a tab or space
     placeholder(word);
   };
   
 getWord();
 
-
 // Display our symbols as placeholders for the chosen word's letters
 const placeholder = function (word) {
     const placeholderLetters = [];
     for (const letter of word) {
-        console.log(letter);
+        //console.log(letter);
         placeholderLetters.push("●");
     }
     wordInProgress.innerText = placeholderLetters.join("");
 };
-
 
 guessLetterButton.addEventListener("click", function (e) {
     e.preventDefault();
@@ -97,18 +96,18 @@ const updateWordInProgress = function (guessedLetters) { //this function will re
     const revealWord = []; //new array with the updated characters
     for (const letter of wordArray) { //to check if the wordArray contains any letter from the guessedLetter array
       if (guessedLetters.includes(letter)) { //if does contains any of the letters, update the circle symbol with the correct letter
-        revealWord.push(letter.toUpperCase()); //You'll want to create a new array with the updated characters and then use join() to update the empty paragraph where the word in progress will appear.
+        revealWord.push(letter.toUpperCase()); 
       } else {
         revealWord.push("●");
       }
     }
     // console.log(revealWord);
-    wordInProgress.innerText = revealWord.join("");
+    wordInProgress.innerText = revealWord.join(""); // use join() to update the empty paragraph where the word in progress will appear.
     checkIfWin();
 };
 
 const updateGuessesRemaining = function(guess){
-    const upperWord = word.toUpperCase();
+    const upperWord = word.toUpperCase(); //Because the player's guess is uppercase, making the word they're guessing uppercase will compare letters with the same casing.
     if (!upperWord.includes(guess)) {
         // womp womp - bad guess, lose a chance
         message.innerText = `Sorry, the word has no ${guess}.`;
